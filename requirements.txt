@@ -1,0 +1,6 @@
+streamlit
+networkx
+pandas
+pyvis
+google-generativeai
+python-dotenv
