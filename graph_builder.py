@@ -5,7 +5,7 @@ import networkx as nx
 from schema import SCHEMA
 from graph_schema import GRAPH_SCHEMA
 
-DATA_DIR = "/Users/atuljoshi/Documents/Projects/Dodge AI/sap-o2c-data"
+DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sap-o2c-data")
 
 NODE_TABLE_MAP = {
     "Customer": {"table": "business_partners", "id_cols": ["customer"]},
