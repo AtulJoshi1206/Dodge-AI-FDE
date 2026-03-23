@@ -17,7 +17,7 @@ if not API_KEY:
 genai.configure(api_key=API_KEY)
 model = genai.GenerativeModel('gemini-3-flash-preview')
 
-def route_query(user_query: str):
+def route_query(user_query: str, G):
     """
     Routes user query using LLM → maps to supported intent → executes query
     """
@@ -30,14 +30,14 @@ def route_query(user_query: str):
             "input_query": user_query,
             "mapped_query": "invoices without payment",
             "status": "success",
-            "data": execute_query("invoices without payment")
+            "data": execute_query("invoices without payment", G)
         }
     if any(word in user_query_lower for word in ["undelivered", "not delivered", "pending deliveries"]):
         return {
             "input_query": user_query,
             "mapped_query": "orders without delivery",
             "status": "success",
-            "data": execute_query("orders without delivery")
+            "data": execute_query("orders without delivery", G)
         }
 
     # STEP 1: HARD GUARDRAIL
@@ -103,7 +103,7 @@ User Query: {user_query}"""
         }
 
     # STEP 4: EXECUTION
-    result = execute_query(mapped_query)
+    result = execute_query(mapped_query, G)
 
 
     # STEP 5: FINAL RESPONSE

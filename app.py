@@ -18,11 +18,12 @@ st.set_page_config(page_title="SAP O2C Graph Explorer", layout="wide")
 st.title("🕸️ Graph-Based O2C Query System")
 st.markdown("---")
 
-# 1. Cache Graph Generation
-@st.cache_resource
+# 1. Performance Optimized Graph Loading
+@st.cache_resource(show_spinner="Building knowledge graph from SAP data...")
 def get_cached_graph():
     return build_graph()
 
+# Global Graph instance
 G = get_cached_graph()
 
 # 2. State Management for Results
@@ -42,9 +43,12 @@ with left_col:
         if not os.environ.get("GOOGLE_API_KEY"):
             st.error("Missing GOOGLE_API_KEY. Please set it in your .env file.")
         elif user_input:
-            with st.spinner("Routing query via LLM..."):
-                result = route_query(user_input)
+            with st.status("Processing Order-to-Cash Query...", expanded=True) as status:
+                st.write("🔍 Identifying business intent...")
+                # Pass the singleton graph instance to avoid rebuilds
+                result = route_query(user_input, G)
                 st.session_state.query_result = result
+                status.update(label="Query Processed!", state="complete", expanded=False)
         else:
             st.warning("Please enter a query.")
 
