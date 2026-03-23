@@ -1,0 +1,8 @@
+.env
+.DS_Store
+__pycache__/
+*.pyc
+.streamlit/
+graph_output.html
+# SAP data folders
+sap-o2c-data/
