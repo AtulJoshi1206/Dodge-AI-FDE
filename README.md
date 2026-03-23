@@ -68,6 +68,8 @@ The core philosophy of this project is **Deterministic AI Integration**. Instead
 - `"show me all undelivered orders"`
 - `"find all unpaid invoices"`
 
+<img width="2940" height="4372" alt="image" src="https://github.com/user-attachments/assets/5104b1d8-5d36-469d-8681-a473e6d541e0" />
+
 ---
 
 ## 8. Real-World Impact
