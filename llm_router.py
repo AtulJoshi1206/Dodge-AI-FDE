@@ -1,12 +1,18 @@
+import streamlit as st
 import os
 import google.generativeai as genai
 from query_engine import execute_query
 
 # API Configuration
-# Note: Ensure GOOGLE_API_KEY is set in your environment
-API_KEY = os.environ.get("GOOGLE_API_KEY", "")
+# Priority: Streamlit Cloud Secrets -> Local Environment
+API_KEY = ""
+try:
+    API_KEY = st.secrets["GOOGLE_API_KEY"]
+except:
+    API_KEY = os.environ.get("GOOGLE_API_KEY", "")
+
 if not API_KEY:
-    print("Warning: GOOGLE_API_KEY not found in environment.")
+    print("Warning: GOOGLE_API_KEY not found. Please set it in Streamlit Secrets or .env file.")
 
 genai.configure(api_key=API_KEY)
 model = genai.GenerativeModel('gemini-3-flash-preview')
